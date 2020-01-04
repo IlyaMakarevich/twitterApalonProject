@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Tweet" representedClassName=".Tweet" syncable="YES">
+        <attribute name="created_at" attributeType="String"/>
+        <attribute name="id_str" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="profile_image_url" attributeType="String"/>
+        <attribute name="screen_name" attributeType="String"/>
+        <attribute name="text" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Tweet" positionX="-63" positionY="-18" width="128" height="133"/>
+    </elements>
+</model>
