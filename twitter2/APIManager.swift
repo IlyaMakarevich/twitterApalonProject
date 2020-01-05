@@ -18,7 +18,6 @@ class APIManager: SessionManager{
     var handle: OAuthSwiftRequestHandle?
     var credentials = OAuthSwiftCredential(consumerKey: Keys.twitterConsumerKey, consumerSecret: Keys.twitterSecretKey)
     var user = User(name: "")
-    let defaults = UserDefaults.standard
     let homeVC = HomeViewController()
     var tweets = [TweetStruct]()
 
@@ -41,16 +40,12 @@ class APIManager: SessionManager{
             oauthManager.client.credential.oauthTokenSecret = credential.oauthTokenSecret
             print(credential.oauthTokenSecret)
         }
-        
-        if let user = defaults.string(forKey: "screen_name") {
-            self.user.name = user
-        }
     }
 
     
     //Twitter api methods
 
-    func login(completion: @escaping () -> ()) {
+    func login(completion: @escaping (String) -> ()) {
         
         handle = oauthManager.authorize(
         withCallbackURL: URL(string: "twitter2://oauth-callback/twitter")!) { result in
@@ -59,8 +54,7 @@ class APIManager: SessionManager{
                 print(credential.oauthToken)
                 print(credential.oauthTokenSecret)
                 self.saveCredenitalsInKeychain(credential: credential)
-                self.defaults.set(parameters["screen_name"] as! String, forKey: "screen_name")
-                completion()
+                completion(parameters["screen_name"] as! String)
             case .failure(let error):
                 print(error.localizedDescription)
             }

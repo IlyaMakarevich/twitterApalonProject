@@ -22,6 +22,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var getTimelineLabel: UIButton!
     @IBOutlet weak var getRelationsLabel: UIButton!
     var user = User(name: "")
+    let defaults = UserDefaults.standard
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +51,10 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func signInTapped(_ sender: Any) {
-        APIManager.shared.login {
+        APIManager.shared.oauthManager.authorizeURLHandler = SafariURLHandler(viewController: self, oauthSwift: APIManager.shared.oauthManager)
+        
+        APIManager.shared.login { name in
+            self.defaults.set(name, forKey: "screen_name")
             self.updateLabels()
         }
     }
@@ -59,7 +64,6 @@ class HomeViewController: UIViewController {
         APIManager.shared.logOut {
             self.updateLabels()
         }
-        APIManager.shared.retrieveCredentials()
     }
     
     
@@ -83,7 +87,7 @@ class HomeViewController: UIViewController {
             getTimelineLabel.isEnabled = true
             getRelationsLabel.isEnabled = true
             idLabel.isHidden = false
-            idLabel.text = ("signed in: \(APIManager.shared.user.name)")
+            idLabel.text = ("signed in: \(self.defaults.string(forKey: "screen_name") ?? "not signed in!")")
             profileButton.isEnabled = true
         }
     }
