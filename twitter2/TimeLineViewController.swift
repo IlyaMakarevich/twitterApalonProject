@@ -19,8 +19,7 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         self.navigationController?.title = "home_timeline"
         view.backgroundColor = .white
-       // timeLineTableView.register(TwitterTableViewCell.self, forCellReuseIdentifier: "tweetCell")
-        
+
         do {
             try self.fetchedhResultController.performFetch()
             print("fetched from CoreData: \(self.fetchedhResultController.sections?[0].numberOfObjects ?? 404)")
@@ -37,6 +36,10 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         
         timeLineTableView.delegate = self
         timeLineTableView.dataSource = self
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
     }
     
@@ -97,17 +100,17 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TwitterTableViewCell
         if let cell_tweet = fetchedhResultController.object(at: indexPath) as? Tweet {
             cell.nameLabel.text = cell_tweet.name
+            cell.screenNameLabel.text = "@\(cell_tweet.screen_name ?? "error")"
             cell.tweetTextView.text = cell_tweet.text
-            cell.dateLabel.text = cell_tweet.created_at
+            cell.dateLabel.text = cell_tweet.created_at?.toShortDateFormat()
             let URL = NSURL(string: cell_tweet.profile_image_url!)!
-            cell.avatarImage.af_setImage(withURL: URL as URL)
+            cell.avatarImage.af_setImage(withURL: URL as URL, filter: CircleFilter())
         }
         return cell
     }
-
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 
     func showAlertWith(title: String, message: String, style: UIAlertController.Style = .alert) {
@@ -132,6 +135,7 @@ extension TimeLineViewController: NSFetchedResultsControllerDelegate {
             break
         }
     }
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.timeLineTableView.endUpdates()
     }
@@ -140,3 +144,16 @@ extension TimeLineViewController: NSFetchedResultsControllerDelegate {
         timeLineTableView.beginUpdates()
     }
 }
+
+//E MMM dd HH:mm:ss Z yyyy -> "MMM d, h:mm a"
+extension String {
+    func toShortDateFormat (format: String = "MMM d, HH:mm") -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E MMM dd HH:mm:ss Z yyyy"
+        guard let dateObj = formatter.date(from: self) else {return "error"}
+        formatter.dateFormat = format
+        return formatter.string(from: dateObj)
+    }
+}
+
+
