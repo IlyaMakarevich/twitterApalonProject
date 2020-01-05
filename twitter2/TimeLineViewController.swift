@@ -151,8 +151,26 @@ extension String {
         let formatter = DateFormatter()
         formatter.dateFormat = "E MMM dd HH:mm:ss Z yyyy"
         guard let dateObj = formatter.date(from: self) else {return "error"}
-        formatter.dateFormat = format
-        return formatter.string(from: dateObj)
+        
+        // show time interval, if > week: show date
+        let secondsAgo = Int(Date().timeIntervalSince(dateObj))
+        let minute = 60
+            let hour = 60 * minute
+            let day = 24 * hour
+            let week = 7 * day
+            
+            if secondsAgo < minute {
+                 return ("\(secondsAgo) sec.")
+            } else if secondsAgo < hour {
+                return ("\(secondsAgo / minute) min.")
+            } else if secondsAgo < day {
+            return ("\(secondsAgo / hour) h.")
+            } else if secondsAgo < week {
+                return ("\(secondsAgo / day) d. ago")
+            } else {
+                formatter.dateFormat = format
+                return formatter.string(from: dateObj)
+            }
     }
 }
 
