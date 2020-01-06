@@ -45,7 +45,7 @@ class APIManager: SessionManager{
     
     //Twitter api methods
 
-    func login(completion: @escaping (String) -> ()) {
+    func login(completion: @escaping (Bool) -> ()) {
         
         handle = oauthManager.authorize(
         withCallbackURL: URL(string: "twitter2://oauth-callback/twitter")!) { result in
@@ -54,7 +54,7 @@ class APIManager: SessionManager{
                 print(credential.oauthToken)
                 print(credential.oauthTokenSecret)
                 self.saveCredenitalsInKeychain(credential: credential)
-                completion(parameters["screen_name"] as! String)
+                completion(true)
             case .failure(let error):
                 print(error.localizedDescription)
             }

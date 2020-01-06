@@ -13,6 +13,9 @@
 		A40682FB23AF950D004C079C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A40682FA23AF950D004C079C /* Assets.xcassets */; };
 		A40682FE23AF950D004C079C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A40682FC23AF950D004C079C /* LaunchScreen.storyboard */; };
 		A406830823AFF1E3004C079C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A406830723AFF1E3004C079C /* HomeViewController.swift */; };
+		A41A900C23C3B60F007E2DD6 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A900B23C3B60F007E2DD6 /* SplashViewController.swift */; };
+		A41A901023C3BF7F007E2DD6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A900F23C3BF7F007E2DD6 /* LoginViewController.swift */; };
+		A41A901223C3C173007E2DD6 /* TwitterLoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A901123C3C173007E2DD6 /* TwitterLoginDelegate.swift */; };
 		A44585E723BB42B1001221F8 /* TwitterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44585E623BB42B1001221F8 /* TwitterTableViewCell.swift */; };
 		A44585EC23BB533B001221F8 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A44585EA23BB533B001221F8 /* Model.xcdatamodeld */; };
 		A44585F623BB6B79001221F8 /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44585F523BB6B79001221F8 /* TimeLineViewController.swift */; };
@@ -39,6 +42,9 @@
 		A40682FD23AF950D004C079C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A40682FF23AF950D004C079C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A406830723AFF1E3004C079C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		A41A900B23C3B60F007E2DD6 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		A41A900F23C3BF7F007E2DD6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A41A901123C3C173007E2DD6 /* TwitterLoginDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterLoginDelegate.swift; sourceTree = "<group>"; };
 		A44585E623BB42B1001221F8 /* TwitterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterTableViewCell.swift; sourceTree = "<group>"; };
 		A44585EB23BB533B001221F8 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		A44585F523BB6B79001221F8 /* TimeLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
@@ -104,14 +110,11 @@
 		A40682F023AF950B004C079C /* twitter2 */ = {
 			isa = PBXGroup;
 			children = (
+				A41A900E23C3B62C007E2DD6 /* Controllers */,
 				A40682F123AF950B004C079C /* AppDelegate.swift */,
 				A4AAA27323B13E750068C0A3 /* SceneDelegate.swift */,
 				A445862423BD390B001221F8 /* CoreDataStack.swift */,
 				A4AAA27523B149FF0068C0A3 /* Models */,
-				A40682F523AF950B004C079C /* ViewController.swift */,
-				A4C6942F23B2A4F200673D08 /* ProfileViewController.swift */,
-				A44585F523BB6B79001221F8 /* TimeLineViewController.swift */,
-				A406830723AFF1E3004C079C /* HomeViewController.swift */,
 				A46FF31023B6954500553D89 /* APIManager.swift */,
 				A46F1B9023B09E9F004B35FE /* Keys.swift */,
 				A40682F723AF950B004C079C /* Main.storyboard */,
@@ -121,6 +124,20 @@
 				A40682FF23AF950D004C079C /* Info.plist */,
 			);
 			path = twitter2;
+			sourceTree = "<group>";
+		};
+		A41A900E23C3B62C007E2DD6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A41A901123C3C173007E2DD6 /* TwitterLoginDelegate.swift */,
+				A40682F523AF950B004C079C /* ViewController.swift */,
+				A4C6942F23B2A4F200673D08 /* ProfileViewController.swift */,
+				A44585F523BB6B79001221F8 /* TimeLineViewController.swift */,
+				A406830723AFF1E3004C079C /* HomeViewController.swift */,
+				A41A900B23C3B60F007E2DD6 /* SplashViewController.swift */,
+				A41A900F23C3BF7F007E2DD6 /* LoginViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		A4AAA27523B149FF0068C0A3 /* Models */ = {
@@ -260,11 +277,14 @@
 				A445862523BD390B001221F8 /* CoreDataStack.swift in Sources */,
 				A4B3DC6D23BE7F1D00692EDF /* Tweet Models.swift in Sources */,
 				A40682F223AF950B004C079C /* AppDelegate.swift in Sources */,
+				A41A901223C3C173007E2DD6 /* TwitterLoginDelegate.swift in Sources */,
 				A4C6943023B2A4F200673D08 /* ProfileViewController.swift in Sources */,
 				A46F1B9123B09E9F004B35FE /* Keys.swift in Sources */,
 				A46F1B9D23C0620F004B35FE /* Tweet+CoreDataProperties.swift in Sources */,
+				A41A901023C3BF7F007E2DD6 /* LoginViewController.swift in Sources */,
 				A44585E723BB42B1001221F8 /* TwitterTableViewCell.swift in Sources */,
 				A44585EC23BB533B001221F8 /* Model.xcdatamodeld in Sources */,
+				A41A900C23C3B60F007E2DD6 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
