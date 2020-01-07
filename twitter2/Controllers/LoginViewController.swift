@@ -39,9 +39,6 @@ class LoginViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        
-     
-        
         super.viewDidLoad()
         buttonCotainerView.layer.cornerRadius = 5
         buttonCotainerView.alpha = 0
@@ -53,8 +50,7 @@ class LoginViewController: UIViewController {
         
         APIManager.shared.login { status in
             if status == true {
-                self.appDelegate.loginStatus = true
-                self.appDelegate.splashDelay  = true
+                self.appDelegate.userLoggedIn  = true
                 self.dismiss(animated: true, completion: nil)
             }
         }

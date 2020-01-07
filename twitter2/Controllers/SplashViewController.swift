@@ -21,18 +21,18 @@ class SplashViewController: UIViewController, TwitterLoginDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !(appDelegate.splashDelay) {
+        if APIManager.shared.checkAccessToken() {
+            self.performSegue(withIdentifier: "TabSegue", sender: self)
+        }
+        
+        if !(appDelegate.userLoggedIn) {
             self.continueLogin()
         }
         
-        if appDelegate.loginStatus {
-            self.performSegue(withIdentifier: "TabSegue", sender: self)
-        }
-
     }
     
     func continueLogin() {
-        appDelegate.splashDelay = false
+        appDelegate.userLoggedIn = false
         self.goToLogin()
     }
     

@@ -12,10 +12,8 @@ import OAuthSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
     var window: UIWindow?
-    var splashDelay = false
-    var loginStatus = false
+    var userLoggedIn = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         CoreDataStack.sharedInstance.applicationDocumentsDirectory()

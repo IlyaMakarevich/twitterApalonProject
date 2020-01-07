@@ -166,27 +166,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-1" translatesAutoresizingMaskIntoConstraints="NO" id="aXC-me-WqU">
-                                <rect key="frame" x="87" y="389" width="240" height="128"/>
+                                <rect key="frame" x="162" y="408" width="90" height="90"/>
                                 <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="bS6-DP-urB"/>
+                                    <constraint firstAttribute="width" constant="89.999999999999886" id="fle-Nd-crV"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="aXC-me-WqU" firstAttribute="centerY" secondItem="j4E-7A-ngT" secondAttribute="centerY" id="GaP-tc-vKc"/>
-                            <constraint firstItem="aXC-me-WqU" firstAttribute="width" secondItem="QsX-sP-cyf" secondAttribute="width" multiplier="0.57971" id="dRE-WA-hVk"/>
-                            <constraint firstItem="aXC-me-WqU" firstAttribute="centerX" secondItem="j4E-7A-ngT" secondAttribute="centerX" id="pWu-b8-4aN"/>
-                            <constraint firstItem="aXC-me-WqU" firstAttribute="height" secondItem="QsX-sP-cyf" secondAttribute="height" multiplier="0.142857" id="rpT-1o-Vvb"/>
+                            <constraint firstItem="aXC-me-WqU" firstAttribute="centerX" secondItem="j4E-7A-ngT" secondAttribute="centerX" id="n9W-RF-uDR"/>
+                            <constraint firstItem="aXC-me-WqU" firstAttribute="centerY" secondItem="j4E-7A-ngT" secondAttribute="centerY" id="wWp-V9-Zdq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="j4E-7A-ngT"/>
                     </view>
                     <connections>
-                        <segue destination="Onp-ca-al9" kind="presentation" identifier="TabSegue" modalPresentationStyle="fullScreen" id="212-YN-ukE"/>
+                        <segue destination="Onp-ca-al9" kind="presentation" identifier="TabSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="212-YN-ukE"/>
                         <segue destination="kv8-ce-KX8" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="Awc-Ag-LQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aVz-N8-PQK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1439" y="-425"/>
+            <point key="canvasLocation" x="-1439.1304347826087" y="-425.22321428571428"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="YCP-K8-2aj">
@@ -196,7 +198,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-1" translatesAutoresizingMaskIntoConstraints="NO" id="m3p-b5-6Aw">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="logo-1" translatesAutoresizingMaskIntoConstraints="NO" id="m3p-b5-6Aw">
                                 <rect key="frame" x="-530" y="408" width="1474" height="90"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Twitter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jm-m0-RLq">
@@ -232,12 +234,12 @@
                         <constraints>
                             <constraint firstItem="1Jm-m0-RLq" firstAttribute="centerX" secondItem="bxq-ek-yw1" secondAttribute="centerX" id="1JJ-WH-sQq"/>
                             <constraint firstItem="sUD-PD-oX3" firstAttribute="centerX" secondItem="bxq-ek-yw1" secondAttribute="centerX" id="B33-WY-Ebg"/>
-                            <constraint firstItem="m3p-b5-6Aw" firstAttribute="centerY" secondItem="bxq-ek-yw1" secondAttribute="centerY" multiplier="0.1" constant="40" id="CxL-cf-Hfn"/>
+                            <constraint firstItem="m3p-b5-6Aw" firstAttribute="top" secondItem="bxq-ek-yw1" secondAttribute="top" id="CxL-cf-Hfn"/>
                             <constraint firstItem="m3p-b5-6Aw" firstAttribute="centerX" secondItem="bxq-ek-yw1" secondAttribute="centerX" id="K97-Oy-pS7"/>
                             <constraint firstItem="1Jm-m0-RLq" firstAttribute="centerY" secondItem="bxq-ek-yw1" secondAttribute="centerY" constant="59" id="Kva-6s-CZP"/>
                             <constraint firstItem="1Jm-m0-RLq" firstAttribute="width" secondItem="VDx-oe-WuW" secondAttribute="width" id="cmd-de-VXp"/>
                             <constraint firstItem="sUD-PD-oX3" firstAttribute="top" secondItem="1Jm-m0-RLq" secondAttribute="bottom" constant="41.5" id="pVH-ko-Rfc"/>
-                            <constraint firstItem="m3p-b5-6Aw" firstAttribute="centerY" secondItem="bxq-ek-yw1" secondAttribute="centerY" id="uzz-a3-sf1"/>
+                            <constraint firstItem="m3p-b5-6Aw" firstAttribute="centerY" secondItem="bxq-ek-yw1" secondAttribute="centerY" priority="999" id="uzz-a3-sf1"/>
                             <constraint firstItem="m3p-b5-6Aw" firstAttribute="height" secondItem="VDx-oe-WuW" secondAttribute="height" multiplier="0.2" id="y0M-oB-gt2"/>
                             <constraint firstItem="m3p-b5-6Aw" firstAttribute="height" secondItem="VDx-oe-WuW" secondAttribute="height" multiplier="0.1" id="zFB-ZX-AaB"/>
                         </constraints>

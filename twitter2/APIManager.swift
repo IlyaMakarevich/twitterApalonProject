@@ -20,8 +20,7 @@ class APIManager: SessionManager{
     var user = User(name: "")
     let homeVC = HomeViewController()
     var tweets = [TweetStruct]()
-
-    
+        
     private init () {
         super.init()
         //create instance
@@ -57,6 +56,7 @@ class APIManager: SessionManager{
                 completion(true)
             case .failure(let error):
                 print(error.localizedDescription)
+                completion(false)
             }
         }       
     }
@@ -145,9 +145,6 @@ class APIManager: SessionManager{
         alertController.addAction(clearAction)
 
         topMostController().present(alertController, animated: true, completion: nil)
-        
-        
-
     }
 
     
@@ -200,8 +197,3 @@ class APIManager: SessionManager{
     }
 }
 
-
-
-class Foo {}
-let foo: AnyObject = Foo()
-let user = foo["user"]

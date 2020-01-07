@@ -23,6 +23,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var getRelationsLabel: UIButton!
     var user = User(name: "")
     let defaults = UserDefaults.standard
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
 
     
     override func viewDidLoad() {
@@ -63,6 +65,8 @@ class HomeViewController: UIViewController {
     @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
         APIManager.shared.logOut {
             self.updateLabels()
+            self.dismiss(animated: true, completion: nil)
+            self.appDelegate.userLoggedIn = false
         }
     }
     
