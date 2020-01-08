@@ -10,33 +10,37 @@ import UIKit
 import CoreData
 import AlamofireImage
 
-class TimeLineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TimeLineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching{
     
-  
+    
     @IBOutlet weak var timeLineTableView: UITableView!
-
+    
+    var arrayOfTweetIds = [String]()
+    var page = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.title = "home_timeline"
         view.backgroundColor = .white
-
+        
         do {
-            try self.fetchedhResultController.performFetch()
-            print("fetched from CoreData: \(self.fetchedhResultController.sections?[0].numberOfObjects ?? 404)")
+            try self.fetchedResultController.performFetch()
+            print("fetched from CoreData: \(self.fetchedResultController.sections?[0].numberOfObjects ?? 404)")
         } catch let error  {
             print("ERROR: \(error)")
         }
         
-        APIManager.shared.getTimeline { (response) in
+        APIManager.shared.getTimeline{ (response) in
             print(response)
             self.clearData()
             self.saveInCoreDataWith(array: response)
         }
-       // timeLineTableView.reloadData()
+        // timeLineTableView.reloadData()
         
         timeLineTableView.delegate = self
         timeLineTableView.dataSource = self
-
+        timeLineTableView.prefetchDataSource = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +51,7 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         if let tweetEntity = NSEntityDescription.insertNewObject(forEntityName: "Tweet", into: context) as? Tweet {
             tweetEntity.id_str = dictionary.id_str
+            arrayOfTweetIds.append(dictionary.id_str)
             tweetEntity.created_at = dictionary.createdAt
             tweetEntity.name = dictionary.name
             tweetEntity.profile_image_url = dictionary.profileImageUrl
@@ -66,7 +71,7 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
+    lazy var fetchedResultController: NSFetchedResultsController<NSFetchRequestResult> = {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Tweet.self))
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: ("id_str"), ascending: false)]
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -90,7 +95,7 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = fetchedhResultController.sections?.first?.numberOfObjects {
+        if let count = fetchedResultController.sections?.first?.numberOfObjects {
             return count
         }
         return 0
@@ -98,7 +103,7 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TwitterTableViewCell
-        if let cell_tweet = fetchedhResultController.object(at: indexPath) as? Tweet {
+        if let cell_tweet = fetchedResultController.object(at: indexPath) as? Tweet {
             cell.nameLabel.text = cell_tweet.name
             cell.screenNameLabel.text = "@\(cell_tweet.screen_name ?? "error")"
             cell.tweetTextView.text = cell_tweet.text
@@ -109,10 +114,48 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print("indexpath = \(indexPath.row)")
+        let lastItem = timeLineTableView.numberOfRows(inSection: 0) - 1
+        print("lastItem= \(lastItem)")
+        if indexPath.row == lastItem {
+            APIManager.shared.getTimeline(page: self.page){ (response) in
+                print(response)
+                self.saveInCoreDataWith(array: response)
+                self.page+=1
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        
+//        print(indexPaths)
+//        print(timeLineTableView.numberOfRows(inSection: 0))
+//        print("the oldest tweet id = \(arrayOfTweetIds.min())")
+//        if indexPaths.count >= timeLineTableView.numberOfRows(inSection: 0){
+//            page+=1
+//            APIManager.shared.getTimeline(page: self.page){ (response) in
+//                print(response)
+//                self.clearData()
+//                self.saveInCoreDataWith(array: response)
+//            }
+//        }
+    }
+    
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = timeLineTableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-
+    
     func showAlertWith(title: String, message: String, style: UIAlertController.Style = .alert) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
         let action = UIAlertAction(title: title, style: .default) { (action) in
@@ -131,6 +174,8 @@ extension TimeLineViewController: NSFetchedResultsControllerDelegate {
             self.timeLineTableView.insertRows(at: [newIndexPath!], with: .automatic)
         case .delete:
             self.timeLineTableView.deleteRows(at: [indexPath!], with: .automatic)
+        case .update:
+            print("update...")
         default:
             break
         }
@@ -155,22 +200,22 @@ extension String {
         // show time interval, if > week: show date
         let secondsAgo = Int(Date().timeIntervalSince(dateObj))
         let minute = 60
-            let hour = 60 * minute
-            let day = 24 * hour
-            let week = 7 * day
-            
-            if secondsAgo < minute {
-                 return ("\(secondsAgo) sec.")
-            } else if secondsAgo < hour {
-                return ("\(secondsAgo / minute) min.")
-            } else if secondsAgo < day {
+        let hour = 60 * minute
+        let day = 24 * hour
+        let week = 7 * day
+        
+        if secondsAgo < minute {
+            return ("\(secondsAgo) sec.")
+        } else if secondsAgo < hour {
+            return ("\(secondsAgo / minute) min.")
+        } else if secondsAgo < day {
             return ("\(secondsAgo / hour) h.")
-            } else if secondsAgo < week {
-                return ("\(secondsAgo / day) d. ago")
-            } else {
-                formatter.dateFormat = format
-                return formatter.string(from: dateObj)
-            }
+        } else if secondsAgo < week {
+            return ("\(secondsAgo / day) d. ago")
+        } else {
+            formatter.dateFormat = format
+            return formatter.string(from: dateObj)
+        }
     }
 }
 

@@ -101,9 +101,9 @@ class APIManager: SessionManager{
         }
     }
     
-    func getTimeline(completion: @escaping ([TweetStruct]) -> Void) {
+    func getTimeline(page: Int=1, completion: @escaping ([TweetStruct]) -> Void) {
 
-        handle = oauthManager.client.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["count": 50,  "exclude_replies" : "true"]) { results in
+        handle = oauthManager.client.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["count": 20 * page,  "exclude_replies" : "true"]) { results in
             
             switch results {
             case .success(let response):
