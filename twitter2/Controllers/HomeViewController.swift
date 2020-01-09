@@ -21,8 +21,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var getInfoButton: UIButton!
     @IBOutlet weak var getTimelineLabel: UIButton!
     @IBOutlet weak var getRelationsLabel: UIButton!
-    var user = User(name: "")
-    let defaults = UserDefaults.standard
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 
@@ -56,7 +54,6 @@ class HomeViewController: UIViewController {
         APIManager.shared.oauthManager.authorizeURLHandler = SafariURLHandler(viewController: self, oauthSwift: APIManager.shared.oauthManager)
         
         APIManager.shared.login { name in
-            self.defaults.set(name, forKey: "screen_name")
             self.updateLabels()
         }
     }
@@ -91,7 +88,8 @@ class HomeViewController: UIViewController {
             getTimelineLabel.isEnabled = true
             getRelationsLabel.isEnabled = true
             idLabel.isHidden = false
-            idLabel.text = ("signed in: \(self.defaults.string(forKey: "screen_name") ?? "not signed in!")")
+            idLabel.text = ("signed in: \(defaults.string(forKey: "user_id") ?? "not signed in!")")
+            
             profileButton.isEnabled = true
         }
     }

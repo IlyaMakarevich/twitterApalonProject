@@ -2,17 +2,13 @@
 //  User.swift
 //  twitter2
 //
-//  Created by MacBook Pro  on 23.12.2019.
-//  Copyright © 2019 MacBook Pro . All rights reserved.
+//  Created by MacBook Pro  on 09.01.2020.
+//  Copyright © 2020 MacBook Pro . All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class User {
-   
-    var name = ""
-    
-    init(name: String) {
-        self.name = name
-    }
+    var id: Int?
 }
+let defaults = UserDefaults.standard

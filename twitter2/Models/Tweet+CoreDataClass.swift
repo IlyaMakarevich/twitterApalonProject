@@ -2,7 +2,7 @@
 //  Tweet+CoreDataClass.swift
 //  
 //
-//  Created by MacBook Pro  on 03.01.2020.
+//  Created by MacBook Pro  on 10.01.2020.
 //
 //
 

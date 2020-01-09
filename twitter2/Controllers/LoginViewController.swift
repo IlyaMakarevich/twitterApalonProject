@@ -20,7 +20,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var logoHeightOriginalConstraint: NSLayoutConstraint!
     @IBOutlet weak var logoHeightSmallerConstraint: NSLayoutConstraint!
     
-    let defaults = UserDefaults.standard
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 

@@ -17,9 +17,10 @@ class APIManager: SessionManager{
     var oauthManager : OAuth1Swift!
     var handle: OAuthSwiftRequestHandle?
     var credentials = OAuthSwiftCredential(consumerKey: Keys.twitterConsumerKey, consumerSecret: Keys.twitterSecretKey)
-    var user = User(name: "")
+    var loggedInUser = User()
     let homeVC = HomeViewController()
     var tweets = [TweetStruct]()
+
         
     private init () {
         super.init()
@@ -52,6 +53,9 @@ class APIManager: SessionManager{
             case .success(let (credential, response, parameters)):
                 print(credential.oauthToken)
                 print(credential.oauthTokenSecret)
+                if let user_id = parameters["user_id"] as? String {
+                defaults.set(user_id, forKey: "user_id")
+                }
                 self.saveCredenitalsInKeychain(credential: credential)
                 completion(true)
             case .failure(let error):
@@ -75,7 +79,7 @@ class APIManager: SessionManager{
     func getRelations(){
         print("getting relations")
         
-        handle = oauthManager.client.get("https://api.twitter.com/1.1/friendships/lookup.json", parameters: ["screen_name": user.name] ) { results in
+        handle = oauthManager.client.get("https://api.twitter.com/1.1/friendships/lookup.json", parameters: ["user_id": loggedInUser.id]) { results in
             
             switch results {
             case .success(let response):
@@ -88,7 +92,7 @@ class APIManager: SessionManager{
     }
     
     func showFollowers() {
-        handle = oauthManager.client.get("https://api.twitter.com/1.1/followers/ids.json",  parameters: ["screen_name": user.name]) { results in
+        handle = oauthManager.client.get("https://api.twitter.com/1.1/followers/ids.json",  parameters: ["screen_name": loggedInUser.id]) { results in
             
             switch results {
             case .success(let response):
@@ -143,6 +147,31 @@ class APIManager: SessionManager{
                 print(error)
             }
 
+        }
+    }
+    
+    func getUserTimeline(completion: @escaping ([TweetStruct]) -> Void) {
+ 
+        guard let user_id = defaults.string(forKey: "user_id") else {return}
+        
+        handle = oauthManager.client.get("https://api.twitter.com/1.1/statuses/user_timeline.json", parameters: ["count": 20,  "user_id": user_id]) { results in
+            
+            switch results {
+            case .success(let response):
+                if let tweetsFromJSON = try? JSONDecoder().decode([TweetDecodable].self, from: response.data) {
+                    print(tweetsFromJSON)
+                    self.tweets = tweetsFromJSON.map ({
+                        TweetStruct(id_str: $0.id_str, createdAt: $0.createdAt,
+                        text: $0.text, profileImageUrl: $0.profileImageUrl,
+                        name: $0.name, screenName: $0.screenName)
+                    })
+                    completion(self.tweets)
+                }
+
+            case .failure(let error):
+                print(error)
+            }
+            
         }
     }
     
