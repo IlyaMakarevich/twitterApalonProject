@@ -123,6 +123,28 @@ class APIManager: SessionManager{
             
         }
     }
+    func getTimelineWithId(page: Int=1, id:String = "", completion: @escaping ([TweetStruct]) -> Void) {
+
+        handle = oauthManager.client.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["count": 20 * page,  "exclude_replies" : "true", "max_id" : id]) { results in
+
+            switch results {
+            case .success(let response):
+                if let tweetsFromJSON = try? JSONDecoder().decode([TweetDecodable].self, from: response.data) {
+                    print(tweetsFromJSON)
+                    self.tweets = tweetsFromJSON.map ({
+                        TweetStruct(id_str: $0.id_str, createdAt: $0.createdAt,
+                        text: $0.text, profileImageUrl: $0.profileImageUrl,
+                        name: $0.name, screenName: $0.screenName)
+                    })
+                    completion(self.tweets)
+                }
+
+            case .failure(let error):
+                print(error)
+            }
+
+        }
+    }
     
     func logOut(completion: @escaping () -> ()) {
         checkAccessToken()

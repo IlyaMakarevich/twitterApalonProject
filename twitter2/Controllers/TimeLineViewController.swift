@@ -118,8 +118,10 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         print("indexpath = \(indexPath.row)")
         let lastItem = timeLineTableView.numberOfRows(inSection: 0) - 1
         print("lastItem= \(lastItem)")
+        guard let oldestTweet = arrayOfTweetIds.min() else {return}
+        guard let oldestTweetInt = Int(oldestTweet) else {return}
         if indexPath.row == lastItem {
-            APIManager.shared.getTimeline(page: self.page){ (response) in
+            APIManager.shared.getTimelineWithId(id:String(oldestTweetInt-1)) { (response) in
                 print(response)
                 self.saveInCoreDataWith(array: response)
                 self.page+=1
