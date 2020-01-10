@@ -23,9 +23,7 @@ class SplashViewController: UIViewController, TwitterLoginDelegate {
         
         if APIManager.shared.checkAccessToken() {
             self.performSegue(withIdentifier: "TabSegue", sender: self)
-        }
-        
-        if !(appDelegate.userLoggedIn) {
+        } else if !(appDelegate.userLoggedIn) {
             self.continueLogin()
         }
         

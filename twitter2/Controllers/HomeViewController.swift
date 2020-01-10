@@ -30,7 +30,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         profileButton.isEnabled = false
-        APIManager.shared.retrieveCredentials()
         updateLabels()
     }
     

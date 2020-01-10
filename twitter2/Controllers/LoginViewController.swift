@@ -46,6 +46,10 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func onloginButton() {
+
+         //добавить внтурь метода login APIManager.shared.oauthManager.authorizeURLHandler = SafariURLHandler(viewController: self, oauthSwift: APIManager.shared.oauthManager)
+
+        
         APIManager.shared.oauthManager.authorizeURLHandler = SafariURLHandler(viewController: self, oauthSwift: APIManager.shared.oauthManager)
         
         APIManager.shared.login { status in
@@ -54,5 +58,7 @@ class LoginViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }
         }
+
+
     }
 }

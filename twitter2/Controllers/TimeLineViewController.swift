@@ -29,7 +29,8 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         } catch let error  {
             print("ERROR: \(error)")
         }
-        
+
+        //попробовать убрать clearData, в базу помещать твиты только с болеее новой айдишкой
         APIManager.shared.getTimeline{ (response) in
             print(response)
             self.clearData()
@@ -80,6 +81,9 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
     }()
     
     private func clearData() {
+
+        //сделать через forEach()
+        
         do {
             let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tweet")

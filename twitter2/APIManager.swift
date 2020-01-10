@@ -49,7 +49,7 @@ class APIManager: SessionManager{
         handle = oauthManager.authorize(
         withCallbackURL: URL(string: "twitter2://oauth-callback/twitter")!) { result in
             switch result {
-            case .success(let (credential, response, parameters)):
+            case .success(let (credential,_,_)):
                 print(credential.oauthToken)
                 print(credential.oauthTokenSecret)
                 self.saveCredenitalsInKeychain(credential: credential)
@@ -147,14 +147,12 @@ class APIManager: SessionManager{
     }
     
     func logOut(completion: @escaping () -> ()) {
-        checkAccessToken()
         // create the alert
         let alertController = UIAlertController(title: "Log out", message: "Clear token from userdefaults?", preferredStyle: .alert)
 
         let clearAction = UIAlertAction(title: "Clear token", style: UIAlertAction.Style.default) {
             UIAlertAction in
             self.clearCredentials()
-            self.checkAccessToken()
             completion()
         }
 
@@ -174,6 +172,8 @@ class APIManager: SessionManager{
     func saveCredenitalsInKeychain(credential: OAuthSwiftCredential) {
         let keychain = Keychain()
         let data = NSKeyedArchiver.archivedData(withRootObject: credential)
+
+
         keychain[data: "twitter_credentials"] = data
     }
     
