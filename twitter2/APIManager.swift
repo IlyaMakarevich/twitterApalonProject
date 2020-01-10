@@ -50,7 +50,7 @@ class APIManager: SessionManager{
         handle = oauthManager.authorize(
         withCallbackURL: URL(string: "twitter2://oauth-callback/twitter")!) { result in
             switch result {
-            case .success(let (credential,_,_)):
+            case .success(let (credential,_,parameters)):
                 print(credential.oauthToken)
                 print(credential.oauthTokenSecret)
                 if let user_id = parameters["user_id"] as? String {
