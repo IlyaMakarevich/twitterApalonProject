@@ -2,7 +2,7 @@
 //  Tweet+CoreDataProperties.swift
 //  
 //
-//  Created by MacBook Pro  on 03.01.2020.
+//  Created by MacBook Pro  on 10.01.2020.
 //
 //
 
@@ -17,7 +17,7 @@ extension Tweet {
     }
 
     @NSManaged public var created_at: String?
-    @NSManaged public var id_str: String
+    @NSManaged public var id_str: String?
     @NSManaged public var name: String?
     @NSManaged public var profile_image_url: String?
     @NSManaged public var screen_name: String?

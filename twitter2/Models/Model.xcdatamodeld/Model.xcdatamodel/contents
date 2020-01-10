@@ -8,7 +8,16 @@
         <attribute name="screen_name" attributeType="String"/>
         <attribute name="text" attributeType="String"/>
     </entity>
+    <entity name="UserTweet" representedClassName="UserTweet" syncable="YES" codeGenerationType="class">
+        <attribute name="created_at" optional="YES" attributeType="String"/>
+        <attribute name="id_str" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="profile_image_url" optional="YES" attributeType="String"/>
+        <attribute name="screen_name" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="Tweet" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="UserTweet" positionX="-63" positionY="27" width="128" height="133"/>
     </elements>
 </model>

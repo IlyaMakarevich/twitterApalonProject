@@ -124,6 +124,7 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         print("lastItem= \(lastItem)")
         guard let oldestTweet = arrayOfTweetIds.min() else {return}
         guard let oldestTweetInt = Int(oldestTweet) else {return}
+        guard page < 5 else {return}
         if indexPath.row == lastItem {
             APIManager.shared.getTimelineWithId(id:String(oldestTweetInt-1)) { (response) in
                 print(response)
