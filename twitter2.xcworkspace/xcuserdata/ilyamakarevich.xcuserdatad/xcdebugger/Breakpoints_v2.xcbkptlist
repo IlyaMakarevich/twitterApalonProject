@@ -36,5 +36,85 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5B337231-8EF8-4B1B-8BB7-766EB8E73C0C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitter2/Controllers/ProfileViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "createTweetEntityFrom(dictionary:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F838BFDA-2195-4463-B4E8-D08F6D509935"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitter2/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "getUserTimeline(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4ED38015-A3AC-4393-A9A2-952D07F64208"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitter2/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "getUserTimeline(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4ED38015-A3AC-4393-A9A2-952D07F64208 - a3bba034102acfc2"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;OAuthSwift.OAuthSwiftResponse, OAuthSwift.OAuthSwiftError&gt;) -&gt; () in twitter2.APIManager.getUserTimeline(completion: (Swift.Array&lt;twitter2.TweetStruct&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "twitter2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ilyamakarevich/twitterApalonProject/twitter2/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "166"
+                  endingLineNumber = "166"
+                  offsetFromSymbolStart = "976">
+               </Location>
+               <Location
+                  uuid = "4ED38015-A3AC-4393-A9A2-952D07F64208 - e6dcffc4ba7413b"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (twitter2.TweetDecodable) -&gt; twitter2.TweetStruct in closure #1 (Swift.Result&lt;OAuthSwift.OAuthSwiftResponse, OAuthSwift.OAuthSwiftError&gt;) -&gt; () in twitter2.APIManager.getUserTimeline(completion: (Swift.Array&lt;twitter2.TweetStruct&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "twitter2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ilyamakarevich/twitterApalonProject/twitter2/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

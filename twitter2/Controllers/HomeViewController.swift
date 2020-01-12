@@ -22,6 +22,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var getTimelineLabel: UIButton!
     @IBOutlet weak var getRelationsLabel: UIButton!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let defaults = UserDefaults.standard
+    
+
 
 
     
@@ -37,7 +40,9 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func getInfoTapped(_ sender: Any) {
-        APIManager.shared.verifyCredentials()
+        APIManager.shared.getProfileInfo { (_) in
+            print("success")
+        }
     }
     
     

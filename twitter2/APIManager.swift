@@ -17,9 +17,10 @@ class APIManager: SessionManager{
     var oauthManager : OAuth1Swift!
     var handle: OAuthSwiftRequestHandle?
     var credentials = OAuthSwiftCredential(consumerKey: Keys.twitterConsumerKey, consumerSecret: Keys.twitterSecretKey)
-    var loggedInUser = User()
     let homeVC = HomeViewController()
     var tweets = [TweetStruct]()
+    let defaults = UserDefaults.standard
+    let loggedInUser = User(userDict: ["":""])
 
         
     private init () {
@@ -54,7 +55,7 @@ class APIManager: SessionManager{
                 print(credential.oauthToken)
                 print(credential.oauthTokenSecret)
                 if let user_id = parameters["user_id"] as? String {
-                defaults.set(user_id, forKey: "user_id")
+                    self.defaults.set(user_id, forKey: "user_id")
                 }
                 self.saveCredenitalsInKeychain(credential: credential)
                 completion(true)
@@ -64,12 +65,14 @@ class APIManager: SessionManager{
             }
         }       
     }
-    func verifyCredentials() {
+    
+    func getProfileInfo(completion: @escaping(User) -> ()) {
         handle = oauthManager.client.get("https://api.twitter.com/1.1/account/verify_credentials.json") { results in
             switch results {
             case .success(let response):
-                let jsonDict = try? response.jsonObject()
-                print(String(describing: jsonDict))
+                let jsonDict = try? response.jsonObject() as? [String: Any]
+                let user = User(userDict: jsonDict!)
+                completion(user)
             case .failure(let error):
                 print(error)
             }

@@ -110,11 +110,11 @@
 		A40682F023AF950B004C079C /* twitter2 */ = {
 			isa = PBXGroup;
 			children = (
-				A41A900E23C3B62C007E2DD6 /* Controllers */,
 				A40682F123AF950B004C079C /* AppDelegate.swift */,
 				A41A901123C3C173007E2DD6 /* TwitterLoginDelegate.swift */,
 				A4AAA27323B13E750068C0A3 /* SceneDelegate.swift */,
 				A445862423BD390B001221F8 /* CoreDataStack.swift */,
+				A41A900E23C3B62C007E2DD6 /* Controllers */,
 				A4AAA27523B149FF0068C0A3 /* Models */,
 				A46FF31023B6954500553D89 /* APIManager.swift */,
 				A46F1B9023B09E9F004B35FE /* Keys.swift */,
@@ -143,11 +143,11 @@
 		A4AAA27523B149FF0068C0A3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A4C0F53023C7B79900EF4E28 /* User.swift */,
 				A49DF2C223C87B0D0051EF37 /* Tweet+CoreDataClass.swift */,
 				A49DF2C323C87B0D0051EF37 /* Tweet+CoreDataProperties.swift */,
 				A4B3DC6C23BE7F1D00692EDF /* Tweet Models.swift */,
 				A44585EA23BB533B001221F8 /* Model.xcdatamodeld */,
-				A4C0F53023C7B79900EF4E28 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

@@ -14,6 +14,8 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBOutlet weak var timeLineTableView: UITableView!
+    var refreshControl: UIRefreshControl!
+
     
     var arrayOfTweetIds = [String]()
     var page = 1
@@ -41,11 +43,34 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         timeLineTableView.delegate = self
         timeLineTableView.dataSource = self
         timeLineTableView.prefetchDataSource = self
+        setupRefreshControl()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
+    }
+    
+    func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        timeLineTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh() {
+        APIManager.shared.getTimeline{ (response) in
+                   self.clearData()
+                   self.saveInCoreDataWith(array: response)
+               }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.refreshControl.endRefreshing()
+        }
+        
+        timeLineTableView.reloadData()
     }
     
     private func createTweetEntityFrom(dictionary: TweetStruct) -> NSManagedObject? {

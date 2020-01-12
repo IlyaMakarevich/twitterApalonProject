@@ -24,18 +24,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var profileDescriptionContainer: UIView!
     
     var arrayOfTweetIds = [String]()
+    var currentUser = User(userDict: [:])
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.title = "user_timeline"
-        profileImageView.backgroundColor = .green
-        profileImageSuperView.backgroundColor = .red
-        
-        backgroundImageView.backgroundColor = .gray
-        profileDescriptionContainer.tintColor = .blue
-        shadowEffectView.backgroundColor = .red
-        
-        view.backgroundColor = .white
+    
+       APIManager.shared.getProfileInfo { (user) in
+              self.currentUser = user
+          }
+    
         do {
             try self.fetchedResultController.performFetch()
             print("fetched from CoreData: \(self.fetchedResultController.sections?[0].numberOfObjects ?? 404)")
@@ -50,6 +48,30 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //configureViewController()
+    }
+    
+    func configureViewController() {
+        
+        profileImageView.backgroundColor = .green
+        profileImageSuperView.backgroundColor = .gray
+        backgroundImageView.backgroundColor = .gray
+        profileDescriptionContainer.tintColor = .blue
+        shadowEffectView.backgroundColor = .red
+        view.backgroundColor = .white
+        
+        
+        guard let profileImageUrl = NSURL(string: currentUser.profile_image_url_string!) else {return}
+       
+        guard let backgroundImageUrl = NSURL(string: currentUser.profile_banner_url_string!) else {return}
+        
+        profileImageView.af_setImage(withURL: (profileImageUrl as URL))
+        backgroundImageView.af_setImage(withURL: (backgroundImageUrl as URL))
+        
     }
     
     private func createTweetEntityFrom(dictionary: TweetStruct) -> NSManagedObject? {
