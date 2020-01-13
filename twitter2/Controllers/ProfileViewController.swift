@@ -32,6 +32,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
        APIManager.shared.getProfileInfo { (user) in
               self.currentUser = user
+            self.configureViewController()
           }
     
         do {
@@ -52,7 +53,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //configureViewController()
     }
     
     func configureViewController() {
@@ -63,15 +63,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profileDescriptionContainer.tintColor = .blue
         shadowEffectView.backgroundColor = .red
         view.backgroundColor = .white
-        
-        
+
         guard let profileImageUrl = NSURL(string: currentUser.profile_image_url_string!) else {return}
-       
         guard let backgroundImageUrl = NSURL(string: currentUser.profile_banner_url_string!) else {return}
         
         profileImageView.af_setImage(withURL: (profileImageUrl as URL))
         backgroundImageView.af_setImage(withURL: (backgroundImageUrl as URL))
-        
     }
     
     private func createTweetEntityFrom(dictionary: TweetStruct) -> NSManagedObject? {
