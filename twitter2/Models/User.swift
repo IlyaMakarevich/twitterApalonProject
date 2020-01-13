@@ -18,6 +18,9 @@ class User {
     let profile_banner_url_string: String?
     let profile_image_url_string: String?
     let followers_count: Int?
+    let friends_count: Int?
+    let location: String?
+    let created_at: String?
     
     init(userDict: [String: Any]) {
         self.userDict = userDict
@@ -28,5 +31,8 @@ class User {
         self.profile_banner_url_string = userDict["profile_banner_url"] as? String
         self.profile_image_url_string = userDict["profile_image_url"] as? String
         self.followers_count = userDict["followers_count"] as? Int
+        self.friends_count = userDict["friends_count"] as? Int
+        self.location = userDict["location"] as? String
+        self.created_at = userDict["created_at"] as? String
     }
 }

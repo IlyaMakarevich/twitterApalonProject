@@ -12,6 +12,7 @@ import AlamofireImage
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -22,6 +23,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var closeModalButton: UIButton!
     @IBOutlet weak var profileDescriptionContainer: UIView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var screenNameLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var followingCountLabel: UILabel!
+    @IBOutlet weak var followersCountLabel: UILabel!
+    @IBOutlet weak var logOutButon: UIButton!
+    let newPostButton = NewPostButton()
+
     
     var arrayOfTweetIds = [String]()
     var currentUser = User(userDict: [:])
@@ -57,18 +68,60 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func configureViewController() {
         
-        profileImageView.backgroundColor = .green
-        profileImageSuperView.backgroundColor = .gray
+        profileImageView.clipsToBounds = true
+        profileImageSuperView.backgroundColor = .white
+        profileImageSuperView.layer.cornerRadius = profileImageSuperView.frame.size.width / 2
+        
         backgroundImageView.backgroundColor = .gray
+        backgroundImageView.contentMode = .scaleAspectFill
         profileDescriptionContainer.tintColor = .blue
-        shadowEffectView.backgroundColor = .red
-        view.backgroundColor = .white
-
+        
+        shadowEffectView.backgroundColor = .gray
+        let gradrientLayer = CAGradientLayer()
+        gradrientLayer.frame = shadowEffectView.bounds
+        let topColor = UIColor.black
+        let bottomColor = UIColor.gray
+        gradrientLayer.colors = [topColor, bottomColor]
+        //gradrientLayer.locations = [0.0, 1.0]
+        //self.shadowEffectView.layer.addSublayer(gradrientLayer)
+        
         guard let profileImageUrl = NSURL(string: currentUser.profile_image_url_string!) else {return}
         guard let backgroundImageUrl = NSURL(string: currentUser.profile_banner_url_string!) else {return}
         
-        profileImageView.af_setImage(withURL: (profileImageUrl as URL))
+        profileImageView.af_setImage(withURL: (profileImageUrl as URL), filter: CircleFilter())
         backgroundImageView.af_setImage(withURL: (backgroundImageUrl as URL))
+        
+        let name = currentUser.name
+        let screenName = currentUser.screen_name
+        let location = currentUser.location
+        let date = currentUser.created_at
+        let followingCount = currentUser.friends_count
+        let followersCount = currentUser.followers_count
+        
+        nameLabel.text = String(name!)
+        screenNameLabel.text = "@" + String(screenName!)
+        locationLabel.text = "🏠" + String(location!)
+        dateLabel.text = "📅Registration date: " + String(date!).toShortDateFormat()
+        followersCountLabel.text = String(followersCount!) + " followers"
+        followingCountLabel.text = String(followingCount!) + " following"
+        
+        configurePostButton()
+    }
+    
+    func configurePostButton() {
+        self.view.addSubview(newPostButton)
+        newPostButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newPostButton.rightAnchor.constraint(equalTo: tableView.layoutMarginsGuide.rightAnchor, constant: -10),
+        newPostButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)])
+    }
+    
+    @IBAction func logOut() {
+        APIManager.shared.logOut {
+            self.dismiss(animated: true, completion: nil)
+            self.appDelegate.userLoggedIn = false
+        }
+        
     }
     
     private func createTweetEntityFrom(dictionary: TweetStruct) -> NSManagedObject? {

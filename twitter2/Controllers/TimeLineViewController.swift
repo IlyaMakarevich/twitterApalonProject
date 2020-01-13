@@ -15,7 +15,7 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var timeLineTableView: UITableView!
     var refreshControl: UIRefreshControl!
-
+    let newPostButton = NewPostButton()
     
     var arrayOfTweetIds = [String]()
     var page = 1
@@ -44,6 +44,7 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         timeLineTableView.dataSource = self
         timeLineTableView.prefetchDataSource = self
         setupRefreshControl()
+        configurePostButton()
         
     }
     
@@ -58,6 +59,19 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         timeLineTableView.addSubview(refreshControl)
+    }
+    
+    func configurePostButton() {
+        self.view.addSubview(newPostButton)
+        newPostButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newPostButton.rightAnchor.constraint(equalTo: timeLineTableView.layoutMarginsGuide.rightAnchor, constant: -10),
+        newPostButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)])
+        newPostButton.addTarget(self, action: #selector(newPost), for: .touchUpInside)
+    }
+    
+    @objc func newPost() {
+        print("creating new post")
     }
     
     @objc func refresh() {
