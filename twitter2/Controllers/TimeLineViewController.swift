@@ -73,7 +73,9 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func newPost() {
-        print("creating new post")
+        newPostButton.press { (_) in
+            print("creating new post")
+        }
     }
     
     @objc func refresh() {
