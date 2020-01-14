@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import AlamofireImage
 
-class TimeLineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching{
+class TimeLineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     
     @IBOutlet weak var timeLineTableView: UITableView!
@@ -38,19 +38,14 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
             self.clearData()
             self.saveInCoreDataWith(array: response)
         }
-        // timeLineTableView.reloadData()
         
         timeLineTableView.delegate = self
         timeLineTableView.dataSource = self
-        timeLineTableView.prefetchDataSource = self
         setupRefreshControl()
         configurePostButton()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
     
     func setupRefreshControl() {
         refreshControl = UIRefreshControl()
@@ -76,6 +71,12 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
         newPostButton.press { (_) in
             print("creating new post")
         }
+        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PostViewController") as? PostViewController {
+            if let navigator = navigationController {
+                navigator.pushViewController(viewController, animated: true)
+            }
+        }
+
     }
     
     @objc func refresh() {
@@ -131,8 +132,10 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
             let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tweet")
             do {
-                let objects  = try context.fetch(fetchRequest) as? [NSManagedObject]
-                _ = objects.map{$0.map{context.delete($0)}}
+               let objects  = try context.fetch(fetchRequest) as? [NSManagedObject]
+                objects?.forEach {object in
+                    context.delete(object)
+                }
                 CoreDataStack.sharedInstance.saveContext()
             } catch let error {
                 print("ERROR DELETING : \(error)")
@@ -240,9 +243,9 @@ extension TimeLineViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-//E MMM dd HH:mm:ss Z yyyy -> "MMM d, h:mm a"
+//E MMM dd HH:mm:ss Z yyyy -> "MMM d, yyyy"
 extension String {
-    func toShortDateFormat (format: String = "MMM d, HH:mm") -> String {
+    func toShortDateFormat (format: String = "MMM d, yyyy") -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "E MMM dd HH:mm:ss Z yyyy"
         guard let dateObj = formatter.date(from: self) else {return "error"}

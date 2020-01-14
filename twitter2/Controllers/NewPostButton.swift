@@ -20,6 +20,7 @@ class NewPostButton: UIButton {
         super.init(coder: aDecoder)
         setupButton()
     }
+
     
     func setupButton() {
         setImage(UIImage(named: "pencil-2"), for: .normal)

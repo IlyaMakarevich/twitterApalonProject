@@ -28,6 +28,7 @@
 		A4B3DC6D23BE7F1D00692EDF /* Tweet Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B3DC6C23BE7F1D00692EDF /* Tweet Models.swift */; };
 		A4C0F53123C7B79900EF4E28 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C0F53023C7B79900EF4E28 /* User.swift */; };
 		A4C6943023B2A4F200673D08 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C6942F23B2A4F200673D08 /* ProfileViewController.swift */; };
+		A4CCA5A923CE2EEB005193A9 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CCA5A823CE2EEB005193A9 /* PostViewController.swift */; };
 		D27664EC4198B9487E0E240F /* Pods_twitter2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E58FE941233F5CBEFAC4DC /* Pods_twitter2.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		A4B3DC6C23BE7F1D00692EDF /* Tweet Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tweet Models.swift"; sourceTree = "<group>"; };
 		A4C0F53023C7B79900EF4E28 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C6942F23B2A4F200673D08 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		A4CCA5A823CE2EEB005193A9 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		FC1487C4CAB20C6F302E0B79 /* Pods-twitter2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitter2.release.xcconfig"; path = "Target Support Files/Pods-twitter2/Pods-twitter2.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +138,7 @@
 				A4C6942F23B2A4F200673D08 /* ProfileViewController.swift */,
 				A44585F523BB6B79001221F8 /* TimeLineViewController.swift */,
 				A41418B123CD083D0009FFEB /* NewPostButton.swift */,
+				A4CCA5A823CE2EEB005193A9 /* PostViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				A40682F223AF950B004C079C /* AppDelegate.swift in Sources */,
 				A41A901223C3C173007E2DD6 /* TwitterLoginDelegate.swift in Sources */,
 				A4C6943023B2A4F200673D08 /* ProfileViewController.swift in Sources */,
+				A4CCA5A923CE2EEB005193A9 /* PostViewController.swift in Sources */,
 				A46F1B9123B09E9F004B35FE /* Keys.swift in Sources */,
 				A41A901023C3BF7F007E2DD6 /* LoginViewController.swift in Sources */,
 				A4C0F53123C7B79900EF4E28 /* User.swift in Sources */,

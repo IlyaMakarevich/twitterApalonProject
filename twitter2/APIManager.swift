@@ -182,6 +182,22 @@ class APIManager: SessionManager{
             
         }
     }
+
+    func sendTweet(text: String, completion: @escaping(Bool) ->()) {
+        handle = oauthManager.client.post("https://api.twitter.com/1.1/statuses/update.json", parameters: ["status" : text])
+        { (results) in
+            switch results {
+            case .success(let response):
+                print(response)
+                completion(true)
+
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+
     
     func logOut(completion: @escaping () -> ()) {
         // create the alert

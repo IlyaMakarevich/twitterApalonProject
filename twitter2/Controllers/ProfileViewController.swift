@@ -61,10 +61,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
+
     
     func configureViewController() {
         
@@ -74,7 +71,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         backgroundImageView.backgroundColor = .gray
         backgroundImageView.contentMode = .scaleAspectFill
-        profileDescriptionContainer.tintColor = .blue
+        profileDescriptionContainer.tintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         shadowEffectView.backgroundColor = .gray
         let gradrientLayer = CAGradientLayer()
@@ -174,7 +171,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var fetchedResultController: NSFetchedResultsController<NSFetchRequestResult> = {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: UserTweet.self))
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: ("id_str"), ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: ("created_at"), ascending: false)]
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         frc.delegate = self
         return frc
