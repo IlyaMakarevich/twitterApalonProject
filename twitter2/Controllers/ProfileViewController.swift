@@ -39,7 +39,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.title = "user_timeline"
     
        APIManager.shared.getProfileInfo { (user) in
               self.currentUser = user

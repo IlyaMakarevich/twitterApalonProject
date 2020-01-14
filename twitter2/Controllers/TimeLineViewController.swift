@@ -22,7 +22,6 @@ class TimeLineViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.title = "home_timeline"
         view.backgroundColor = .white
         
         do {
