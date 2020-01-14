@@ -112,8 +112,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(newPostButton)
         newPostButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newPostButton.rightAnchor.constraint(equalTo: tableView.layoutMarginsGuide.rightAnchor, constant: -10),
-        newPostButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)])
+            tableView.rightAnchor.constraint(equalTo: newPostButton.rightAnchor, constant: 20),
+        newPostButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+        newPostButton.widthAnchor.constraint(equalToConstant: 50),
+        newPostButton.heightAnchor.constraint(equalToConstant: 50)])
     }
     
     @IBAction func logOut() {

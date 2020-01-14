@@ -18,6 +18,7 @@ class APIManager: SessionManager{
     var handle: OAuthSwiftRequestHandle?
     var credentials = OAuthSwiftCredential(consumerKey: Keys.twitterConsumerKey, consumerSecret: Keys.twitterSecretKey)
     let homeVC = HomeViewController()
+    let loginVC = LoginViewController()
     var tweets = [TweetStruct]()
     let defaults = UserDefaults.standard
     let loggedInUser = User(userDict: ["":""])
@@ -47,7 +48,9 @@ class APIManager: SessionManager{
     //Twitter api methods
 
     func login(completion: @escaping (Bool) -> ()) {
-        
+
+       
+
         handle = oauthManager.authorize(
         withCallbackURL: URL(string: "twitter2://oauth-callback/twitter")!) { result in
             switch result {
@@ -81,8 +84,9 @@ class APIManager: SessionManager{
     
     func getRelations(){
         print("getting relations")
-        
-        handle = oauthManager.client.get("https://api.twitter.com/1.1/friendships/lookup.json", parameters: ["user_id": loggedInUser.id]) { results in
+        guard let user_id = defaults.string(forKey: "user_id") else {return}
+
+        handle = oauthManager.client.get("https://api.twitter.com/1.1/friendships/lookup.json", parameters: ["user_id": user_id]) { results in
             
             switch results {
             case .success(let response):
@@ -95,7 +99,8 @@ class APIManager: SessionManager{
     }
     
     func showFollowers() {
-        handle = oauthManager.client.get("https://api.twitter.com/1.1/followers/ids.json",  parameters: ["screen_name": loggedInUser.id]) { results in
+        guard let user_id = defaults.string(forKey: "user_id") else {return}
+        handle = oauthManager.client.get("https://api.twitter.com/1.1/followers/ids.json",  parameters: ["screen_name": user_id]) { results in
             
             switch results {
             case .success(let response):

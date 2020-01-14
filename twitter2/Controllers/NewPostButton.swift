@@ -22,11 +22,11 @@ class NewPostButton: UIButton {
     }
     
     func setupButton() {
-        frame = CGRect(x: 100, y: 100, width: 100, height: 100)
-        layer.cornerRadius = bounds.size.width / 2
         setImage(UIImage(named: "pencil-2"), for: .normal)
-        backgroundColor = .systemPink
+        frame = CGRect(x: 200,y: 200,width: 50,height: 50)
+        layer.cornerRadius = layer.frame.width / 2
+        layer.backgroundColor = #colorLiteral(red: 0.1148131862, green: 0.6330112815, blue: 0.9487846494, alpha: 1)
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.black.cgColor
     }
-
-
 }
